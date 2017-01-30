@@ -13,41 +13,24 @@ local V = {
 list.Set("Vehicles", "honda_nsxr_lw", V)
 
 
-if SERVER then
+if SERVER then include("lwcars_partmover.lua")
 	
-	hook.Add("KeyPress", "NSXPopupslw", function(ply, key) -- Default 0.02 timer
+	local time = 0.005
+	local bone = "pop_up"
+
+	hook.Add("KeyPress", "NSXPopupslw", function(ply, key)
+
 		if ply:InVehicle() then
 			local car = ply:GetVehicle()
-			if car:GetModel() == "models/lonewolfie/honda_nsxr.mdl" then
-				if key == IN_SPEED then
-					if toggle == 1 then toggle = 0
-						timer.Destroy("popuplightsdown" .. tostring(car:EntIndex()) )
-						timer.Create("popuplightsup" .. tostring(car:EntIndex()) , 0.02, 0, function()
-							if !IsValid(car) then return end
-							if car:GetPoseParameter("pop_up") >= 1 then --Lights Up
-								car:SetPoseParameter("pop_up", 1)
-								timer.Destroy("popuplightsup" .. tostring(car:EntIndex()) )
-							else
-								car:SetPoseParameter("pop_up", car:GetPoseParameter("pop_up") + 0.02)
-							end
-						end)
-						
-					else toggle = 1
-						timer.Destroy("popuplightsup" .. tostring(car:EntIndex()) )
-						timer.Create("popuplightsdown" .. tostring(car:EntIndex()) , 0.02, 0, function()
-							if !IsValid(car) then return end
-							if car:GetPoseParameter("pop_up") <= 0 then --Lights Down
-								car:SetPoseParameter("pop_up", 0)
-								timer.Destroy("popuplightsdown" .. tostring(car:EntIndex()) )
-							else
-								car:SetPoseParameter("pop_up", car:GetPoseParameter("pop_up") - 0.02)
-							end
-						end)
-						
-					end
+			local model = string.lower(V.Model)
+			
+			if car:GetModel() == model then -- and this &&
+				if key == IN_SPEED then -- fix this
+					print("keypress_nsx")
+					LWCPartMover(car, time, bone, model) 
 				end
 			end
 		end
+		
 	end)
-	
 end

@@ -13,41 +13,24 @@ local V = {
 list.Set("Vehicles", "mercedes_slk55_lw", V)
 
 
-if SERVER then
+if SERVER then include("lwcars_partmover.lua")
+	
+	local time = 0.001
+	local bone = "roof_ani"
 
-	hook.Add("KeyPress", "slkrooflw", function(ply, key) -- Default 0.001 timer
+	hook.Add("KeyPress", "AMG55Popupslw", function(ply, key)
+	
 		if ply:InVehicle() then
 			local car = ply:GetVehicle()
-			if car:GetModel() == "models/lonewolfie/mercedes_slk55_amg.mdl" then
-				if key == IN_SPEED then
-					if toggle == 1 then toggle = 0
-						timer.Destroy("roofdown" .. tostring(car:EntIndex()) )
-						timer.Create("roofup" .. tostring(car:EntIndex()) , 0.001, 0, function()
-							if !IsValid(car) then return end
-							if car:GetPoseParameter("roof_ani") >= 1 then --Roof Up
-								car:SetPoseParameter("roof_ani", 1)
-								timer.Destroy("roofup" .. tostring(car:EntIndex()) )
-							else
-								car:SetPoseParameter("roof_ani", car:GetPoseParameter("roof_ani") + 0.001)
-							end
-						end)
-						
-					else toggle = 1
-						timer.Destroy("roofup" .. tostring(car:EntIndex()) )
-						timer.Create("roofdown" .. tostring(car:EntIndex()) , 0.001, 0, function()
-							if !IsValid(car) then return end
-							if car:GetPoseParameter("roof_ani") <= 0 then --Roof Down
-								car:SetPoseParameter("roof_ani", 0)
-								timer.Destroy("roofdown" .. tostring(car:EntIndex()) )
-							else
-								car:SetPoseParameter("roof_ani", car:GetPoseParameter("roof_ani") - 0.001)
-							end
-						end)
-						
-					end
+			local model = string.lower(V.Model)
+			
+			if car:GetModel() == model then -- and this &&
+				if key == IN_SPEED then -- fix this
+					LWCPartMover(car, time, bone, model) 
 				end
 			end
 		end
+		
 	end)
 		
 		
