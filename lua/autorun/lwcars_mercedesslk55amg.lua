@@ -15,17 +15,17 @@ list.Set("Vehicles", "mercedes_slk55_lw", V)
 
 if SERVER then include("lwcars_partmover.lua")
 	
-	local time = 0.001
-	local bone = "roof_ani"
+	local time = 0.001 -- Time the bone will move for in Seconds.
+	local bone = "roof_ani" -- The name of the bone we are gonna move.
 
-	hook.Add("KeyPress", "AMG55Popupslw", function(ply, key)
+	hook.Add("KeyPress", "mercedes_slk55_lw_kp", function(ply, key)
 	
 		if ply:InVehicle() then
 			local car = ply:GetVehicle()
 			local model = string.lower(V.Model)
 			
-			if car:GetModel() == model then -- and this &&
-				if key == IN_SPEED then -- fix this
+			if car:GetModel() == model then
+				if key == IN_SPEED then -- todo: move a few lines up, no reason to keep setting vars. :|
 					LWCPartMover(car, time, bone, model) 
 				end
 			end
