@@ -4,19 +4,17 @@
 if SERVER then include("lwcars_partmover.lua")
 	
 	local time = 0.0 -- Time the bone will move for in Seconds.
-	local bone = "bone_name_here" -- Name of the bone we are gonna move.
+	local bone = "bone_name" -- The name of the bone we are gonna move.
+	local name = "car_name" -- Change this to the name car model file. (Only the name no .mdl)
 
-	hook.Add("KeyPress", string.Replace( V.Model,"/","" ), function(ply, key)
-	
+	hook.Add("KeyPress", name.."kp", function(ply, key)
 		if ply:InVehicle() then if key != IN_SPEED then return end
 			local car = ply:GetVehicle()
-			local model = string.lower(V.Model)
 			
-			if car:GetModel() == model then
-				LWCPartMover(car, time, bone, model) 
+			if car:GetModel() == string.lower(V.Model) then
+				LWCPartMover(car, time, bone) 
 			end
-		end
-		
+		end	
 	end)
 	
 end
@@ -32,10 +30,12 @@ All you have todo is change our variables:
 
 >*bone* to the bone name you set in 3ds or whatever.
 
+>*name* to the name of your car which you can C+P from the model file name. **MAKE SURE YOU CHANGE THIS FOR EACH NEW CAR FILE!**
+
 <br/><br/><br/>
 ###More Usage / Secondary Cell Phone Calls
 
-If we wanted to have another part move when we press shift for whatever reason, we would call another <br/>*LWCPartMover(car, time, bone, model)*
+If we wanted to have another part move when we press shift for whatever reason, we would call another <br/>*LWCPartMover(car, time, bone)*
 <br/>And instead of using a local variable, we would set them in the function call as show below: 
 
 ```lua
@@ -43,19 +43,17 @@ if SERVER then include("lwcars_partmover.lua")
 	
 	local time = 0.02 -- Time the bone will move for in Seconds.
 	local bone = "pop_up" -- The name of the bone we are gonna move.
+	local name = "honda_nsxr" -- Change this to the name car model file. (Only the name no .mdl)
 
-	hook.Add("KeyPress", string.Replace( V.Model,"/","" ), function(ply, key)
-	
+	hook.Add("KeyPress", name.."kp", function(ply, key)
 		if ply:InVehicle() then if key != IN_SPEED then return end
 			local car = ply:GetVehicle()
-			local model = string.lower(V.Model)
 			
-			if car:GetModel() == model then
-				LWCPartMover(car, time, bone, model) 
-				LWCPartMover(car, 0.001, "roof_down", model) -- Another part that will be moving
+			if car:GetModel() == string.lower(V.Model) then
+				LWCPartMover(car, time, bone)
+				LWCPartMover(car, 0.001, "captain_poopy_pants") -- Another part that will be moving.
 			end
-		end
-		
+		end	
 	end)
 	
 end
