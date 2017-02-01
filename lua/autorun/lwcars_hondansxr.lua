@@ -17,13 +17,14 @@ if SERVER then include("lwcars_partmover.lua")
 	
 	local time = 0.02 -- Time the bone will move for in Seconds.
 	local bone = "pop_up" -- The name of the bone we are gonna move.
+	local name = "honda_nsxr" -- Change this to the name car model file. (Only the name no .mdl)
 
-	hook.Add("KeyPress", "honda_nsxr".."kp", function(ply, key)
+	hook.Add("KeyPress", name.."kp", function(ply, key)
 		if ply:InVehicle() then if key != IN_SPEED then return end
 			local car = ply:GetVehicle()
 			
 			if car:GetModel() == string.lower(V.Model) then
-				LWCPartMover(car, time, bone) 
+				LWCPartMover(car, time, bone)
 			end
 		end	
 	end)
