@@ -1,9 +1,9 @@
 
-local toggle = 1
+local state = 1
 	
-function LWCPartMover(car, time, bone, model) 
+function LWCPartMover(car, time, bone) 
 
-	if toggle == 1 then toggle = 0
+	if state == 1 then state = 0
 		timer.Destroy("LW" .. bone .. 0 .. tostring(car:EntIndex()))
 		timer.Create("LW" .. bone .. 1 .. tostring(car:EntIndex()), time, 0, function()
 		if !IsValid(car) then return end
@@ -13,7 +13,7 @@ function LWCPartMover(car, time, bone, model)
 				car:SetPoseParameter(bone, car:GetPoseParameter(bone) + time)
 			end
 		end)
-	else toggle = 1
+	else state = 1
 		timer.Destroy("LW" .. bone .. 1 .. tostring(car:EntIndex()))
 		timer.Create("LW" .. bone .. 0 .. tostring(car:EntIndex()), time, 0, function()
 		if !IsValid(car) then return end
