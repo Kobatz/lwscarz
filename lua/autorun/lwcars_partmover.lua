@@ -1,24 +1,6 @@
-
--- Paste Copyright BS Here, lel. :3
-
-function LWCPartHook(time, bone, name, keyp, model) -- This function allows us to use more than 1 movement part.
-
-	hook.Add("KeyPress", name.."kp", function(ply, key) -- This seems sorta hacky.
-		if ply:InVehicle() then if key != keyp then return end
-			local car = ply:GetVehicle()
-			
-			if car:GetModel() == model then
-				LWCPartMover(car, time, bone)
-			end
-		end	
-	end)
-	
-end
-
-
 local state = 1 -- We need this to set our default position of 1, to start pos.
 
-local function LWCPartMover(car, time, bone) 
+local function LWCPartMover(car, time, bone)
 
 	if state == 1 then state = 0
 		timer.Destroy("LW" .. bone .. 0 .. tostring(car:EntIndex()))
@@ -41,5 +23,20 @@ local function LWCPartMover(car, time, bone)
 			end
 		end)
 	end
+	
+end
+
+
+function LWCPartHook(time, bone, name, keyp, model) -- This function allows us to use more than 1 movement part.
+	
+	hook.Add("KeyPress", name.."kp", function(ply, key) -- This seems sorta hacky.
+		if ply:InVehicle() then if key != keyp then return end
+			local car = ply:GetVehicle()
+			
+			if car:GetModel() == model then
+				LWCPartMover(car, time, bone)
+			end
+		end	
+	end)
 	
 end
