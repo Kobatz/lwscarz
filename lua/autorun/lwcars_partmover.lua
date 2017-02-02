@@ -18,7 +18,7 @@ end
 
 local state = 1 -- We need this to set our default position of 1, to start pos.
 
-local function LWCPartMover(car, time, bone) 
+function LWCPartMover(car, time, bone) 
 
 	if state == 1 then state = 0
 		timer.Destroy("LW" .. bone .. 0 .. tostring(car:EntIndex()))
