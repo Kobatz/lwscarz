@@ -1,6 +1,10 @@
 local state = 1 -- We need this to set our default position of 1, to start pos.
 
+<<<<<<< HEAD
 local function LWCPartMover(car, time, bone)
+=======
+function LWCPartMover(car, time, bone) 
+>>>>>>> origin/master
 
 	if state == 1 then state = 0
 		timer.Destroy("LW" .. bone .. 0 .. tostring(car:EntIndex()))
@@ -25,6 +29,7 @@ local function LWCPartMover(car, time, bone)
 	end
 	
 end
+<<<<<<< HEAD
 
 
 function LWCPartHook(time, bone, name, keyp, model) -- This function allows us to use more than 1 movement part.
@@ -40,3 +45,5 @@ function LWCPartHook(time, bone, name, keyp, model) -- This function allows us t
 	end)
 	
 end
+=======
+>>>>>>> origin/master
