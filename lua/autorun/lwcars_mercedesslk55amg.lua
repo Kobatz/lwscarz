@@ -15,19 +15,7 @@ list.Set("Vehicles", "mercedes_slk55_lw", V)
 
 if SERVER then include("lwcars_partmover.lua")
 	
-	local time = 0.001 -- Time the bone will move for in Seconds.
-	local bone = "roof_ani" -- The name of the bone we are gonna move.
-	local name = "mercedes_slk55_amg" -- Change this to the name car model file. (Only the name no .mdl)
-	
-	hook.Add("KeyPress", name.."kp", function(ply, key)
-		if ply:InVehicle() then if key != IN_SPEED then return end
-			local car = ply:GetVehicle()
-			
-			if car:GetModel() == string.lower(V.Model) then
-				LWCPartMover(car, time, bone) 
-			end
-		end
-	end)
+	LWCPartHook( 0.001, "roof_ani", "mercedes_slk55_amg", IN_SPEED, string.lower(V.Model) )
 		
 		
 	hook.Add("KeyPress", "slk55brakelw", function(ply, key)
